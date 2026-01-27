@@ -53,6 +53,17 @@ public class BowlingTest {
         assertThat(bowlingGame.score()).isEqualTo(40);
     }
 
+    @Test
+    void perfectGame() {
+        Bowling bowlingGame = new Bowling();
+        for (int i = 0; i < 12; i++) {
+            bowlingGame.roll(10);
+        }
+
+        assertThat(bowlingGame.score()).isEqualTo(300);
+    }
+
+
     
     
     
