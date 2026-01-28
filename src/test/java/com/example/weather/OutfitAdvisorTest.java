@@ -31,4 +31,13 @@ public class OutfitAdvisorTest {
         Mockito.when(weatherService.getTemperature()).thenReturn((float) 16.0);
         assertThat(advisor.getClothingAdvice()).isEqualTo("T-Shirt");
     }
+
+    @Test
+    void defaultAdviceWhenNoTempData() {
+        Mockito.when(weatherService.getTemperature())
+                .thenThrow(new IllegalStateException());
+
+        assertThat(advisor.getClothingAdvice())
+                .isEqualTo("Jeans and Jacket");
+    }
 }
