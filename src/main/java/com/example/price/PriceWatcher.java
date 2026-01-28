@@ -11,8 +11,12 @@ public class PriceWatcher {
     }
 
     public void checkPrices() {
-        int price = priceService.getPrice("T-Shirt");
-        if( price < 100)
-            notificationService.notify("T-Shirt", price);
+        try {
+            int price = priceService.getPrice("T-Shirt");
+            if (price < 100)
+                notificationService.notify("T-Shirt", price);
+        }catch (RuntimeException e){
+            throw new RuntimeException("Error when checking prices");
+        }
     }
 }

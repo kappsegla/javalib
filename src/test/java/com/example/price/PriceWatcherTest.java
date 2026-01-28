@@ -7,6 +7,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @ExtendWith(MockitoExtension.class)
 public class PriceWatcherTest {
 
@@ -30,6 +33,17 @@ public class PriceWatcherTest {
                 Mockito.times(1))
                 .notify("T-Shirt", 95);
     }
+
+    @Test
+    void throwsExceptionWhenPriceServiceIsUnavailable() {
+        Mockito.when(priceService.getPrice("T-Shirt"))
+                .thenThrow(new RuntimeException("Something went wrong"));
+
+        var exception = assertThrows(RuntimeException.class,
+                ()-> priceWatcher.checkPrices());
+        assertThat(exception).hasMessage("Error when checking prices");
+    }
+
 
 
 }
