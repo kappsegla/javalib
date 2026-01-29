@@ -11,11 +11,21 @@ public class SimpleServer {
 
         int port = 3000;
 
-        try(ServerSocket serverSocket = new ServerSocket(port,64,
+        try (ServerSocket serverSocket = new ServerSocket(port, 64,
                 InetAddress.ofLiteral("127.0.0.1"))) {
             System.out.println("Starting server at port: " + serverSocket.getLocalPort());
 
-            Socket socket  = serverSocket.accept();
+            while (true) {
+                Socket socket = serverSocket.accept();
+                Thread.ofVirtual().start(() -> handleClient(socket));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void handleClient(Socket socket) {
+        try (Socket client = socket) {
             System.out.println("Accepted connection from: " + socket.getRemoteSocketAddress());
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -26,7 +36,7 @@ public class SimpleServer {
 
             writer.println("Hello There from Server");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
     }
 }
