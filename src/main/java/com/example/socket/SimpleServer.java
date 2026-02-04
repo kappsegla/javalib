@@ -11,8 +11,7 @@ public class SimpleServer {
 
         int port = 3000;
 
-        try (ServerSocket serverSocket = new ServerSocket(port, 64,
-                InetAddress.ofLiteral("127.0.0.1"))) {
+        try (ServerSocket serverSocket = new ServerSocket(port, 64)) {
             System.out.println("Starting server at port: " + serverSocket.getLocalPort());
 
             while (true) {

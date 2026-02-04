@@ -7,7 +7,7 @@ public class SimpleClient {
 
     static void main() {
         int port = 3000;
-        String serverIp = "127.0.0.1";
+        String serverIp = "localhost";
 
         try (Socket socket = new Socket(serverIp, port)) {
             InputStream inputStream = socket.getInputStream();
