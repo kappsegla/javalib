@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@5.10.0
+        uses: docker/metadata-action@v5.10.0
         with:
           images: ghcr.io/kappsegla/simpleserver
       - name: Build and push
