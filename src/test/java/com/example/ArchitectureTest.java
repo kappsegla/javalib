@@ -18,4 +18,15 @@ class ArchitectureTest {
                 .should().resideInAPackage("com.example.filters");
         rule.check(importedClasses);
     }
+
+    @Test
+    void filterNaming() {
+        JavaClasses importedClasses = new ClassFileImporter().importPackages("com.example");
+
+        ArchRule rule = ArchRuleDefinition.classes()
+                .that().resideInAPackage("com.example.filters")
+                .should().haveSimpleNameEndingWith("Filter");
+        rule.check(importedClasses);
+    }
+
 }
