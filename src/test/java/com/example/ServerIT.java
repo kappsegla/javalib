@@ -35,6 +35,8 @@ class ServerIT {
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         }
-        assertThat(response.body()).isEqualTo("Hello There from Server");
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.headers().firstValue("content-length")).contains("2");
+        assertThat(response.body()).isEqualTo("OK");
     }
 }

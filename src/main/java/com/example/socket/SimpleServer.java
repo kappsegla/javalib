@@ -32,7 +32,12 @@ public class SimpleServer {
 
             System.out.println("Message from client: " + reader.readLine());
 
-            writer.println("Hello There from Server");
+            writer.println("""
+                    HTTP/1.1 200 OK
+                    content-length: 2
+                    
+                    OK
+                    """);
         } catch (IOException e) {
             throw new RuntimeException();
         }
